@@ -1,23 +1,17 @@
 <template>
   <Login />
-  {{ a }}
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import {} from "vue";
 import Login from "views/Login.vue";
 
-export default defineComponent({
+export default {
   components: {
     Login,
   },
-  setup() {
-    const state = reactive({
-      a: "a",
-    });
-    return state;
-  },
-});
+  setup() {},
+};
 </script>
 
 <style lang="less">
