@@ -1,15 +1,11 @@
 <template>
-  <Login />
+  <router-view />
 </template>
 
 <script lang="ts">
 import {} from "vue";
-import Login from "views/Login.vue";
 
 export default {
-  components: {
-    Login,
-  },
   setup() {},
 };
 </script>
