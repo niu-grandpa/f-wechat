@@ -12,4 +12,7 @@ export default {
 
 <style lang="less">
 @import "@/styles/base";
+#app {
+  overflow: hidden;
+}
 </style>

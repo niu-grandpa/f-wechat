@@ -1,5 +1,5 @@
 <template>
-  <section style="z-index: 9999">
+  <section>
     <transition name="van-fade">
       <div v-if="visible" :class="homeClass" />
     </transition>

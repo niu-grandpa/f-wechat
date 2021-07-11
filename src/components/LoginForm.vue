@@ -18,13 +18,7 @@
       />
     </van-cell-group>
     <div style="margin-top: 26px">
-      <van-button
-        block
-        type="primary"
-        native-type="submit"
-        style="background: rgb(7, 193, 96); border-color: rgb(7, 193, 96)"
-        >登录</van-button
-      >
+      <van-button block type="success" native-type="submit">登录</van-button>
     </div>
   </van-form>
 </template>
