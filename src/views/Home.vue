@@ -8,7 +8,7 @@
         <van-button type="success">登录</van-button>
       </router-link>
       <router-link to="/register">
-        <van-button style="color: rgb(7, 193, 96">注册</van-button>
+        <van-button style="color: rgb(7, 193, 96)">注册</van-button>
       </router-link>
     </div>
   </section>

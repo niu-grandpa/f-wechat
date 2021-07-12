@@ -1,5 +1,5 @@
 <template>
-  <van-form @failed="onFailed" @submit="handleClick">
+  <van-form @failed="onFailed" @submit="onSubmit">
     <van-cell-group inset style="margin: 0">
       <van-field
         v-model="nickName"
@@ -13,14 +13,14 @@
         name="userName"
         label="帐号"
         placeholder="填写帐号"
-        :rules="[{ validator: validatorUN, message: '请输入8位数字的帐号' }]"
+        :rules="[{ pattern: /\d{8}/, message: '请输入8位数字的帐号' }]"
       />
       <van-field
         v-model="password"
         name="password"
         label="密码"
         placeholder="填写密码"
-        :rules="[{ validator: validatorPW, message: '请输入6位数字的密码' }]"
+        :rules="[{ pattern: /\d{6}/, message: '请输入6位数字的密码' }]"
       />
     </van-cell-group>
     <div style="margin-top: 26px">
@@ -31,44 +31,24 @@
 
 <script lang="ts">
 import { reactive, toRefs } from "vue";
+import router from "../router";
 import { Toast } from "vant";
 
+interface RegInfo {
+  nickName: string;
+  userName: string;
+  password: string;
+}
+
 export default {
-  emits: ["on-reg"],
   setup(props: any, context: any) {
-    const state = reactive({
+    const state: RegInfo = reactive({
       nickName: "",
       userName: "",
       password: "",
     });
 
-    // 校验函数可以返回 Promise，实现异步校验
-    const validatorNickName = (val: string) =>
-      new Promise((resolve) => {
-        Toast.loading("验证中...");
-        setTimeout(() => {
-          Toast.clear();
-          resolve(val !== "");
-        }, 1000);
-      });
-
-    const validatorUN = (val: string) =>
-      new Promise((resolve) => {
-        Toast.loading("验证中...");
-        setTimeout(() => {
-          Toast.clear();
-          resolve(/\d{8}/.test(val));
-        }, 1000);
-      });
-
-    const validatorPW = (val: string) =>
-      new Promise((resolve) => {
-        Toast.loading("验证中...");
-        setTimeout(() => {
-          Toast.clear();
-          resolve(/\d{6}/.test(val));
-        }, 1000);
-      });
+    const validatorNickName = (val: string): boolean => val.length > 0;
 
     const onFailed = () => {
       Toast({
@@ -77,17 +57,29 @@ export default {
       });
     };
 
-    const handleClick = () => {
-      context.emit("on-reg");
+    const onSubmit = (values: RegInfo) => {
+      Toast.loading("验证中");
+      setTimeout(() => {
+        for (const key in values) {
+          // @ts-ignore
+          localStorage.setItem(key, values[key]);
+        }
+        Toast({
+          type: "success",
+          message: "注册成功",
+          onClose: () => {
+            Toast.clear();
+            router.replace("/user/login");
+          },
+        });
+      }, 2000);
     };
 
     return {
       ...toRefs(state),
       onFailed,
       validatorNickName,
-      validatorUN,
-      validatorPW,
-      handleClick,
+      onSubmit,
     };
   },
 };

@@ -1,20 +1,20 @@
 <template>
-  <van-form @submit="handleClick">
+  <van-form @submit="onSubmit">
     <van-cell-group inset style="margin: 0">
       <van-field
         v-model="username"
-        name="user"
+        name="userName"
         label="帐号"
         placeholder="请填写FWeChat号"
-        :rules="[{ required: true, message: '请填写FWeChat号' }]"
+        :rules="[{ pattern: /\d{8}/, required: true, message: 'FWeChat号不存在' }]"
       />
       <van-field
         v-model="password"
         type="password"
-        name="pw"
+        name="password"
         label="密码"
         placeholder="请填写密码"
-        :rules="[{ required: true, message: '请填写密码' }]"
+        :rules="[{ pattern: /\d{6}/, required: true, message: '无效的密码' }]"
       />
     </van-cell-group>
     <div style="margin-top: 26px">
@@ -25,21 +25,45 @@
 
 <script lang="ts">
 import { ref } from "vue";
+import router from "../router";
+import { Dialog, Toast } from "vant";
+
+interface UserInfo {
+  userName: string;
+  password: string;
+}
 
 export default {
-  emits: ["on-submit"],
-  setup(prop: any, context: any) {
+  setup() {
     const username = ref<string>("");
     const password = ref<string>("");
 
-    const handleClick = (values: object) => {
-      context.emit("on-submit", values);
+    const onSubmit = (values: UserInfo) => {
+      const { userName, password } = values;
+      const un = localStorage.getItem("userName");
+      const pw = localStorage.getItem("password");
+      const nk = localStorage.getItem("nickName");
+
+      if (un === userName && pw === password) {
+        Toast.loading("登录中");
+        setTimeout(() => {
+          Toast.clear();
+          router.replace({
+            name: "chats",
+            params: { nickName: nk!, username: userName },
+          });
+        }, 1000);
+      } else {
+        Dialog.alert({
+          message: "帐号密码不存在或未注册",
+        });
+      }
     };
 
     return {
       username,
       password,
-      handleClick,
+      onSubmit,
     };
   },
 };

@@ -19,26 +19,50 @@ const router = createRouter({
       component: () => import('views/Home.vue'),
     },
     {
-      path: '/login',
+      path: '/user/login',
       meta: {
         title: '登录-FWeChat',
       },
       component: () => import('views/Login.vue'),
     },
     {
-      path: '/register',
+      path: '/user/register',
       meta: {
         title: '注册-FWeChat',
       },
-      component: () => import('views//Register.vue'),
+      component: () => import('views/Register.vue'),
     },
     {
-      path: '/chats',
+      path: '/user/chats',
       meta: {
-        title: '消息-FWeChat',
+        title: '聊天-FWeChat',
       },
       name: 'chats',
-      component: () => import('views//Chats.vue'),
+      component: () => import('views/Chats.vue'),
+    },
+    {
+      path: '/user/contacts',
+      meta: {
+        title: '通讯录-FWeChat',
+      },
+      name: 'contacts',
+      component: () => import('views/Contacts.vue'),
+    },
+    {
+      path: '/user/discover',
+      meta: {
+        title: '发现-FWeChat',
+      },
+      name: 'discover',
+      component: () => import('views/Discover.vue'),
+    },
+    {
+      path: '/user/me',
+      meta: {
+        title: '我的-FWeChat',
+      },
+      name: 'me',
+      component: () => import('views/Me.vue'),
     },
   ],
 });
