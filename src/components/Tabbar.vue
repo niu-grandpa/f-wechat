@@ -43,8 +43,8 @@ footer {
 }
 .fwechat {
   &-tabbar {
-    background-color: #f8f8f8;
-    border-top: 1px solid #fefefe;
+    background-color: #fff;
+    border-top: 1px solid #e8eaec;
     .van-tabbar-item--active {
       color: rgb(7, 193, 96);
       background-color: inherit;

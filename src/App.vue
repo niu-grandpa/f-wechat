@@ -55,13 +55,18 @@ export default {
 .fwechat {
   &-content {
     position: relative;
-    height: calc(100vh - 7rem);
+    height: calc(100vh - 6.7rem);
     overflow-y: auto;
+    background-color: #f8f8f9;
   }
 }
 
 .hidden {
   visibility: hidden;
   z-index: -1;
+}
+
+.van-popover__action {
+  width: auto;
 }
 </style>

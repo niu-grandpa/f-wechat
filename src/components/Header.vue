@@ -4,14 +4,21 @@
       <span :class="titleClass">{{ $props.title }}</span>
       <span :class="iconBoxClass">
         <van-icon name="search" />
-        <van-icon name="add-o" />
+        <van-popover
+          v-model:show="showPopover"
+          :actions="actions"
+          theme="dark"
+          placement="bottom-end"
+        >
+          <template #reference><van-icon name="add-o" /></template>
+        </van-popover>
       </span>
     </div>
   </header>
 </template>
 
 <script lang="ts">
-import { computed } from "vue";
+import { ref, computed } from "vue";
 
 const prefixCls = "fwechat";
 
@@ -24,10 +31,22 @@ export default {
     const titleClass = computed(() => `${prefixCls}-header-title`);
     const iconBoxClass = computed(() => `${prefixCls}-header-icon-box`);
 
+    const showPopover = ref<boolean>(false);
+
+    const actions = [
+      { text: "发起群聊", icon: "chat" },
+      { text: "添加朋友", icon: "friends" },
+      { text: "扫一扫", icon: "scan" },
+      { text: "收付款", icon: "after-sale" },
+      { text: "帮助与反馈", icon: "comment" },
+    ];
+
     return {
       wrapperClass,
       titleClass,
       iconBoxClass,
+      showPopover,
+      actions,
     };
   },
 };
@@ -41,14 +60,10 @@ header {
 }
 .fwechat {
   &-header {
-    width: 100%;
     height: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
     background-color: #f8f8f9;
 
     &-title {
