@@ -1,25 +1,3 @@
-import {
-  Icon,
-  Button,
-  Tabbar,
-  TabbarItem,
-  Form,
-  Field,
-  CellGroup,
-  Popover,
-  Cell,
-  Image as VanImage,
-} from 'vant';
+import { Icon, Button, Tabbar, TabbarItem, Form, Field, CellGroup, Popover, Cell } from 'vant';
 
-export const Vant = [
-  Icon,
-  Button,
-  Tabbar,
-  TabbarItem,
-  Form,
-  Field,
-  CellGroup,
-  Popover,
-  Cell,
-  VanImage,
-];
+export const Vant = [Icon, Button, Tabbar, TabbarItem, Form, Field, CellGroup, Popover, Cell];

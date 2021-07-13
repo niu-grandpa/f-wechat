@@ -76,7 +76,7 @@ export default {
     position: relative;
     height: calc(100vh - 6.7rem);
     overflow-y: auto;
-    background-color: #f8f8f9;
+    background-color: #eee;
   }
 }
 
@@ -87,5 +87,8 @@ export default {
 
 .van-popover__action {
   width: auto;
+}
+.van-cell__left-icon {
+  margin-right: 1rem;
 }
 </style>

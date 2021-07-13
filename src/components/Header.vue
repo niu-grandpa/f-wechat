@@ -54,7 +54,7 @@ export default {
 
 <style lang="less" scoped>
 header {
-  height: 3.5rem;
+  height: 4rem;
   position: relative;
   z-index: 999;
 }
@@ -65,10 +65,11 @@ header {
     align-items: center;
     justify-content: center;
     background-color: #f8f8f9;
+    border-bottom: 1px solid #e8eaec;
 
     &-title {
       font-weight: 550;
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     &-icon-box {
