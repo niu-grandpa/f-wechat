@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { Toast } from "vant";
 import Avatar from "comps/Avatar.vue";
 
@@ -23,14 +23,14 @@ interface List {
   info: [{ name: string; src: string }];
 }
 
-function getList(list: List[]) {
+function getList(list: any) {
   Toast.loading({
     message: "加载中...",
     duration: 0,
   });
   fetch("/static/contacts.json").then((res) => {
     res.json().then((data: List[]) => {
-      list = data;
+      list.value = data;
       Toast.clear();
     });
   });
@@ -43,7 +43,7 @@ export default {
   setup() {
     const list = ref<List[]>();
 
-    onMounted(() => getList(list.value!));
+    getList(list);
 
     return {
       list,
