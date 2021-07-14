@@ -9,6 +9,7 @@ const router = createRouter({
         title: 'FWeChat',
         isLogin: true,
       },
+      redirect: '/user/chats',
       component: () => import('views/Chats.vue'),
     },
     {

@@ -1,7 +1,9 @@
 <template>
   <header>
     <div :class="wrapperClass">
-      <span :class="titleClass">{{ $props.title }}</span>
+      <span :class="titleClass">
+        {{ $props.title === "微信" ? $props.title + "(12)" : $props.title }}
+      </span>
       <span :class="iconBoxClass">
         <van-icon name="search" />
         <van-popover

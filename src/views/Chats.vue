@@ -1,11 +1,11 @@
 <template>
   <div :class="wrapperClass">
-    <van-cell center clickable v-for="n in list" :key="n.user">
+    <van-cell center clickable v-for="(n, i) in list" :key="n.user">
       <template #value>
         <sup>{{ n.time }}</sup>
       </template>
       <template #title>
-        <Avatar :src="n.src" />
+        <Avatar :src="n.src" :badge-count="n.count" />
         <div :class="infoClass">
           <h4>{{ n.user }}</h4>
           <small>{{ n.desc }}</small>
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watchEffect } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { Toast } from "vant";
 import Avatar from "comps/Avatar.vue";
 
@@ -25,9 +25,25 @@ interface List {
   user: string;
   desc: string;
   time: string;
+  count: number;
 }
 
 const prefixCls = "fwechat";
+
+function getChatList<T>(list: T) {
+  Toast.loading({
+    message: "加载中...",
+    forbidClick: true,
+    duration: 0,
+  });
+  fetch("/static/chat_list.json").then((response) => {
+    response.json().then((data) => {
+      // @ts-ignore
+      list["value"] = data;
+      Toast.clear();
+    });
+  });
+}
 
 export default {
   components: {
@@ -39,18 +55,7 @@ export default {
 
     const list = ref<List[]>([]);
 
-    Toast.loading({
-      message: "加载中...",
-      forbidClick: true,
-      duration: 0,
-    });
-
-    fetch("/static/chat_list.json").then((response) => {
-      response.json().then((data: List[]) => {
-        list.value = data;
-        Toast.clear();
-      });
-    });
+    onMounted(() => getChatList(list));
 
     return {
       wrapperClass,
@@ -64,6 +69,10 @@ export default {
 <style lang="less" scoped>
 .fwechat {
   &-chats {
+    .van-cell--center {
+      align-items: flex-start;
+    }
+
     &-info {
       width: 100%;
       margin-left: 3.5rem;

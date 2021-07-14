@@ -1,6 +1,14 @@
 <template>
   <div class="avatar">
-    <img :width="width" :height="height" :src="src" alt="avatar" />
+    <van-badge :content="count" :show-zero="false">
+      <img
+        :width="width"
+        :height="height"
+        :src="src"
+        alt="avatar"
+        style="object-fit: cover"
+      />
+    </van-badge>
   </div>
 </template>
 
@@ -11,6 +19,7 @@ interface Props {
   width: number;
   height: number;
   src: string;
+  badgeCount: number;
 }
 
 export default {
@@ -27,16 +36,22 @@ export default {
       type: String,
       default: "https://img.yzcdn.cn/vant/cat.jpeg",
     },
+    badgeCount: {
+      type: Number,
+      default: 0,
+    },
   },
   setup(props: Props) {
     const width = ref<number>(props.width);
     const height = ref<number>(props.height);
     const src = ref<string>(props.src);
+    const count = ref<number>(props.badgeCount);
 
     return {
       width,
       height,
       src,
+      count,
     };
   },
 };
