@@ -1,18 +1,23 @@
 <template>
-  <Header :class="hiddenClass" :title="text" />
+  <Header :class="hiddenClass" :title="title" />
   <section :class="contentClass">
-    <router-view />
+    <Chats v-show="title === '微信'" />
+    <Contacts v-show="title === '通讯录'" />
+    <Discover v-show="title === '发现'" />
+    <Me v-show="title === '我'" />
+    <RouterView />
   </section>
-  <Tabbar :active="active" @on-change="onChange" />
+  <Tabbar @on-change="onChange" />
 </template>
 
 <script lang="ts">
-import { computed, ref, watchEffect } from "vue";
-import { RouteRecordName, useRoute } from "vue-router";
+import { computed, reactive, toRefs } from "vue";
 import Header from "comps/Header.vue";
 import Tabbar from "comps/Tabbar.vue";
-
-type ActiveType = string | RouteRecordName | null | undefined;
+import Chats from "views/Chats.vue";
+import Contacts from "views/Contacts.vue";
+import Discover from "views/Discover.vue";
+import Me from "views/Me.vue";
 
 const prefixCls = "fwechat";
 
@@ -20,42 +25,26 @@ export default {
   components: {
     Header,
     Tabbar,
+    Chats,
+    Contacts,
+    Discover,
+    Me,
   },
   setup() {
-    const route = useRoute();
-
-    const show = ref<boolean>(true);
-    const active = ref<ActiveType>("");
-    const text = ref<string>("微信");
-
-    const contentClass = computed(() => `${prefixCls}-content`);
-    const hiddenClass = computed(() => ({ hidden: !show.value }));
-
-    const changeTitle = (key: ActiveType) => {
-      const map = {
-        chats: "微信",
-        contacts: "通讯录",
-        discover: "发现",
-      };
-      // @ts-ignore
-      let title = map[key];
-      text.value = title;
-      // 当切换到 '我' 选项的时候隐藏头部标题栏
-      if (!title) show.value = false;
-      else show.value = true;
-    };
-    const onChange = (cur: string) => changeTitle(cur);
-
-    watchEffect(() => {
-      // @ts-ignore
-      active.value = route.name;
-      changeTitle(route.name);
+    const state = reactive({
+      title: "微信",
+      showHeader: true,
     });
+    const contentClass = computed(() => `${prefixCls}-content`);
+    const hiddenClass = computed(() => ({ hidden: !state.showHeader }));
+
+    const onChange = (cur: string) => {
+      state.title = cur;
+      state.showHeader = cur === "我" ? false : true;
+    };
 
     return {
-      show,
-      text,
-      active,
+      ...toRefs(state),
       contentClass,
       hiddenClass,
       onChange,

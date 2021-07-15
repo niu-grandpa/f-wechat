@@ -5,17 +5,16 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      redirect: `/user=${localStorage.getItem('userName')}`,
       meta: {
-        title: 'FWeChat',
+        title: '首页',
         isLogin: true,
       },
-      redirect: '/user/chats',
-      component: () => import('views/Chats.vue'),
     },
     {
       path: '/home',
       meta: {
-        title: '首页',
+        title: '登录-FWeChat',
       },
       component: () => import('views/Home.vue'),
     },
@@ -32,38 +31,6 @@ const router = createRouter({
         title: '注册-FWeChat',
       },
       component: () => import('views/Register.vue'),
-    },
-    {
-      path: '/user/chats',
-      meta: {
-        title: '聊天-FWeChat',
-      },
-      name: 'chats',
-      component: () => import('views/Chats.vue'),
-    },
-    {
-      path: '/user/contacts',
-      meta: {
-        title: '通讯录-FWeChat',
-      },
-      name: 'contacts',
-      component: () => import('views/Contacts.vue'),
-    },
-    {
-      path: '/user/discover',
-      meta: {
-        title: '发现-FWeChat',
-      },
-      name: 'discover',
-      component: () => import('views/Discover.vue'),
-    },
-    {
-      path: '/user/me',
-      meta: {
-        title: '我的-FWeChat',
-      },
-      name: 'me',
-      component: () => import('views/Me.vue'),
     },
   ],
 });

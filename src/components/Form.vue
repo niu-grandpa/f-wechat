@@ -1,5 +1,5 @@
 <template>
-  <transition name="van-slide-right">
+  <Transition name="van-slide-right">
     <section v-show="visible" :class="wrapperClass">
       <div :class="closeIconClass">
         <router-link to="/home"><van-icon name="arrow-left" /></router-link>
@@ -9,7 +9,7 @@
         <slot />
       </div>
     </section>
-  </transition>
+  </Transition>
 </template>
 
 <script lang="ts">

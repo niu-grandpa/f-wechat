@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 
 interface Props {
   width: number;
@@ -46,7 +46,9 @@ export default {
     const height = ref<number>(props.height);
     const src = ref<string>(props.src);
     const count = ref<number>(props.badgeCount);
-
+    watchEffect(() => {
+      count.value = props.badgeCount;
+    });
     return {
       width,
       height,

@@ -1,6 +1,12 @@
 <template>
   <div :class="wrapperClass">
-    <van-cell center clickable v-for="(n, i) in list" :key="n.user">
+    <van-cell
+      center
+      clickable
+      v-for="(n, i) in list"
+      :key="n.user"
+      @click="handleClick(i)"
+    >
       <template #value>
         <sup>{{ n.time }}</sup>
       </template>
@@ -16,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { Toast } from "vant";
 import Avatar from "comps/Avatar.vue";
 
@@ -30,19 +36,18 @@ interface List {
 
 const prefixCls = "fwechat";
 
-function getChatList<T>(list: T) {
+async function getChatList<T>(list: T) {
   Toast.loading({
     message: "加载中...",
     forbidClick: true,
     duration: 0,
   });
-  fetch("/static/chat_list.json").then((response) => {
-    response.json().then((data) => {
-      // @ts-ignore
-      list["value"] = data;
-      Toast.clear();
-    });
-  });
+
+  const response: Response = await fetch("/static/chat_list.json");
+  // @ts-ignore
+  list["value"] = await response.json();
+
+  Toast.clear();
 }
 
 export default {
@@ -55,12 +60,15 @@ export default {
 
     const list = ref<List[]>([]);
 
-    onMounted(() => getChatList(list));
+    const handleClick = (idx: number) => (list.value[idx].count = 0);
+
+    getChatList(list);
 
     return {
       wrapperClass,
       infoClass,
       list,
+      handleClick,
     };
   },
 };

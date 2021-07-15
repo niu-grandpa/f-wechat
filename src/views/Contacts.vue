@@ -23,17 +23,14 @@ interface List {
   info: [{ name: string; src: string }];
 }
 
-function getList(list: any) {
+async function getList(list: any) {
   Toast.loading({
     message: "加载中...",
     duration: 0,
   });
-  fetch("/static/contacts.json").then((res) => {
-    res.json().then((data: List[]) => {
-      list.value = data;
-      Toast.clear();
-    });
-  });
+  const res = await fetch("/static/contacts.json");
+  list.value = await res.json();
+  Toast.clear();
 }
 
 export default {
