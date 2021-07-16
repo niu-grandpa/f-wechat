@@ -1,51 +1,35 @@
 <template>
   <Header :class="hiddenClass" :title="title" />
-  <section :class="contentClass">
-    <Chats v-show="title === '微信'" />
-    <Contacts v-show="title === '通讯录'" />
-    <Discover v-show="title === '发现'" />
-    <Me v-show="title === '我'" />
-    <RouterView />
-  </section>
+  <Main :active="title" />
   <Tabbar @on-change="onChange" />
 </template>
 
 <script lang="ts">
-import { computed, reactive, toRefs } from "vue";
+import { computed, ref } from "vue";
 import Header from "comps/Header.vue";
+import Main from "views/Main.vue";
 import Tabbar from "comps/Tabbar.vue";
-import Chats from "views/Chats.vue";
-import Contacts from "views/Contacts.vue";
-import Discover from "views/Discover.vue";
-import Me from "views/Me.vue";
-
-const prefixCls = "fwechat";
 
 export default {
   components: {
     Header,
+    Main,
     Tabbar,
-    Chats,
-    Contacts,
-    Discover,
-    Me,
   },
   setup() {
-    const state = reactive({
-      title: "微信",
-      showHeader: true,
-    });
-    const contentClass = computed(() => `${prefixCls}-content`);
-    const hiddenClass = computed(() => ({ hidden: !state.showHeader }));
+    const title = ref<string>("微信");
+    const showHeader = ref<boolean>(true);
+
+    const hiddenClass = computed(() => ({ hidden: !showHeader.value }));
 
     const onChange = (cur: string) => {
-      state.title = cur;
-      state.showHeader = cur === "我" ? false : true;
+      title.value = cur;
+      showHeader.value = cur === "我" ? false : true;
     };
 
     return {
-      ...toRefs(state),
-      contentClass,
+      title,
+      showHeader,
       hiddenClass,
       onChange,
     };

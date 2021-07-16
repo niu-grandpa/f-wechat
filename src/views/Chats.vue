@@ -60,7 +60,10 @@ export default {
 
     const list = ref<List[]>([]);
 
-    const handleClick = (idx: number) => (list.value[idx].count = 0);
+    // 点击消息列表进入聊天窗口，并隐藏提示徽标
+    const handleClick = (idx: number) => {
+      list.value[idx].count = 0;
+    };
 
     getChatList(list);
 
