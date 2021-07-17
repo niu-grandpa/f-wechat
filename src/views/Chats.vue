@@ -23,8 +23,10 @@
 
 <script lang="ts">
 import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 import { Toast } from "vant";
 import Avatar from "comps/Avatar.vue";
+import { getLocalItem, setLocalItem } from "../utils";
 
 interface List {
   src: string;
@@ -55,17 +57,38 @@ export default {
     Avatar,
   },
   setup() {
+    const router = useRouter();
+
     const wrapperClass = computed(() => `${prefixCls}-chats`);
     const infoClass = computed(() => `${prefixCls}-chats-info`);
+    const MSG_SUM = computed(() => "msgSum");
 
     const list = ref<List[]>([]);
+    const message = ref<number[]>([]);
 
-    // 点击消息列表进入聊天窗口，并隐藏提示徽标
+    getChatList(list)
+      .then(() => {
+        list.value.forEach((l, i) => {
+          // 每次重新进入时，从本地缓存中获取某条消息是否已被查阅过，如果是则取缓存值
+          if (getLocalItem(`msg-${i}`)) {
+            l.count = Number(getLocalItem(`msg-${i}`));
+          }
+          if (l.count > 0) {
+            message.value.push(l.count);
+          }
+        });
+      })
+      .then(() => setLocalItem(MSG_SUM.value, `${message.value.length}`));
+
+    // 点击消息列表进入聊天窗口
+    // 如果有消息计数提示则置零，标题消息总数减1，并保留到缓存中，以便下一次同步
     const handleClick = (idx: number) => {
       list.value[idx].count = 0;
-    };
+      router.push(`/chat/friend=${list.value[idx].user}`);
 
-    getChatList(list);
+      setLocalItem(`msg-${idx}`, "0");
+      setLocalItem(MSG_SUM.value, `${(message.value.length -= 1)}`);
+    };
 
     return {
       wrapperClass,

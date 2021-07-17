@@ -1,5 +1,6 @@
 <template>
   <Header :class="hiddenClass" :title="title" />
+  <RouterView />
   <Main :active="title" />
   <Tabbar @on-change="onChange" />
 </template>
@@ -42,15 +43,6 @@ export default {
 
 #app {
   overflow: hidden;
-}
-
-.fwechat {
-  &-content {
-    position: relative;
-    height: calc(100vh - 6.7rem);
-    overflow-y: auto;
-    background-color: #eee;
-  }
 }
 
 .hidden {

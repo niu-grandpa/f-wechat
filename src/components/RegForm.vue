@@ -33,6 +33,7 @@
 import { reactive, toRefs } from "vue";
 import router from "../router";
 import { Toast } from "vant";
+import { setLocalItem } from "../utils";
 
 interface RegInfo {
   nickName: string;
@@ -41,7 +42,7 @@ interface RegInfo {
 }
 
 export default {
-  setup(props: any, context: any) {
+  setup() {
     const state: RegInfo = reactive({
       nickName: "",
       userName: "",
@@ -62,7 +63,7 @@ export default {
       setTimeout(() => {
         for (const key in values) {
           // @ts-ignore
-          localStorage.setItem(key, values[key]);
+          setLocalItem(key, values[key]);
         }
         Toast({
           type: "success",

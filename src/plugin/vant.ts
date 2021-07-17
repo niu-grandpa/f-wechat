@@ -11,6 +11,9 @@ import {
   Badge,
   IndexBar,
   IndexAnchor,
+  NavBar,
+  Col,
+  Row,
 } from 'vant';
 
 export const Vant = [
@@ -26,4 +29,7 @@ export const Vant = [
   Badge,
   IndexBar,
   IndexAnchor,
+  NavBar,
+  Col,
+  Row,
 ];

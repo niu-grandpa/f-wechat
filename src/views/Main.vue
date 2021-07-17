@@ -4,7 +4,6 @@
     <Contacts v-show="$props.active === '通讯录'" />
     <Discover v-show="$props.active === '发现'" />
     <Me v-show="$props.active === '我'" />
-    <router-view />
   </section>
 </template>
 
@@ -35,3 +34,14 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.fwechat {
+  &-content {
+    position: relative;
+    height: calc(100vh - 6.7rem);
+    overflow-y: auto;
+    background-color: #efefef;
+  }
+}
+</style>

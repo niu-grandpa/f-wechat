@@ -2,7 +2,7 @@
   <header>
     <div :class="wrapperClass">
       <span :class="titleClass">
-        {{ $props.title === "微信" ? $props.title + "(12)" : $props.title }}
+        {{ $props.title === "微信" ? $props.title + msgLen : $props.title }}
       </span>
       <span :class="iconBoxClass">
         <van-icon name="search" />
@@ -20,7 +20,8 @@
 </template>
 
 <script lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
+import { getLocalItem } from "../utils";
 
 const prefixCls = "fwechat";
 
@@ -34,6 +35,9 @@ export default {
     const iconBoxClass = computed(() => `${prefixCls}-header-icon-box`);
 
     const showPopover = ref<boolean>(false);
+
+    const msgSum = getLocalItem("msgSum");
+    const msgLen = ref<string>(msgSum && msgSum !== "0" ? `(${msgSum})` : "");
 
     const actions = [
       { text: "发起群聊", icon: "chat" },
@@ -49,6 +53,7 @@ export default {
       iconBoxClass,
       showPopover,
       actions,
+      msgLen,
     };
   },
 };
@@ -56,7 +61,7 @@ export default {
 
 <style lang="less" scoped>
 header {
-  height: 4rem;
+  height: 3.5rem;
   position: relative;
   z-index: 999;
 }
@@ -66,7 +71,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f8f8f9;
+    background-color: #efefef;
     border-bottom: 1px solid #e8eaec;
 
     &-title {

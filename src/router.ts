@@ -5,9 +5,9 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: `/user=${localStorage.getItem('userName')}`,
+      redirect: `/user=${localStorage.getItem('userName')}t=${Date.now()}`,
       meta: {
-        title: '首页',
+        title: 'FWeChat',
         isLogin: true,
       },
     },
@@ -31,6 +31,13 @@ const router = createRouter({
         title: '注册-FWeChat',
       },
       component: () => import('views/Register.vue'),
+    },
+    {
+      path: '/chat/friend=:user',
+      meta: {
+        title: '聊天会话-FWeChat',
+      },
+      component: () => import('views/ChatWindow.vue'),
     },
   ],
 });

@@ -27,6 +27,7 @@
 import { ref } from "vue";
 import router from "../router";
 import { Dialog, Toast } from "vant";
+import { getLocalItem } from "../utils";
 
 interface UserInfo {
   userName: string;
@@ -40,9 +41,9 @@ export default {
 
     const onSubmit = (values: UserInfo) => {
       const { userName, password } = values;
-      const un = localStorage.getItem("userName");
-      const pw = localStorage.getItem("password");
-      const nk = localStorage.getItem("nickName");
+      const un = getLocalItem("userName");
+      const pw = getLocalItem("password");
+      const nk = getLocalItem("nickName");
 
       if (un === userName && pw === password) {
         Toast.loading("登录中");

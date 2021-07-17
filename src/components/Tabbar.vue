@@ -59,12 +59,13 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 3.2rem;
+  height: 2.8rem;
 }
 .fwechat {
   &-tabbar {
-    background-color: #fff;
-    border-top: 1px solid #e8eaec;
+    background-color: #efefef;
+    border-top: 1px solid #dcdee2;
+    height: 2.8rem;
     .van-tabbar-item--active {
       color: rgb(7, 193, 96);
       background-color: inherit;
