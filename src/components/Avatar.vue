@@ -7,6 +7,7 @@
         :src="src"
         alt="avatar"
         style="object-fit: cover"
+        v-lazy="src"
       />
     </van-badge>
   </div>

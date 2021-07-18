@@ -14,6 +14,7 @@ import {
   NavBar,
   Col,
   Row,
+  Lazyload,
 } from 'vant';
 
 export const Vant = [
@@ -32,4 +33,5 @@ export const Vant = [
   NavBar,
   Col,
   Row,
+  Lazyload,
 ];

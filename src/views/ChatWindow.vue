@@ -1,29 +1,33 @@
 <template>
   <Transition name="van-slide-right" v-show="show">
     <section :class="wrapperClass">
-      <van-nav-bar
-        :title="$route.params.user"
-        fixed
-        left-arrow
-        @click-left=""
-        @click-right=""
-      >
-        <template #right>
-          <van-icon name="ellipsis" />
-        </template>
-      </van-nav-bar>
+      <div style="height: 3.5rem">
+        <van-nav-bar
+          :title="$route.params.user"
+          fixed
+          left-arrow
+          @click-left="handleBack"
+          @click-right=""
+        >
+          <template #right>
+            <van-icon name="ellipsis" />
+          </template>
+        </van-nav-bar>
+      </div>
+
       <div :class="contentClass"></div>
+
       <div :class="footerClass">
         <van-row justify="space-between">
           <van-col span="2">
             <van-icon name="volume-o" />
           </van-col>
           <van-col span="16">
-            <van-field />
+            <van-field v-model="inputValue" />
           </van-col>
           <van-col span="6">
             <van-icon name="smile-o" />
-            <van-button type="success">发送</van-button>
+            <van-button type="success" @click="handleSend">发送</van-button>
           </van-col>
         </van-row>
       </div>
@@ -38,19 +42,32 @@ const prefixCls = "fwechat";
 
 export default {
   setup() {
+    const show = ref<boolean>(false);
+    setTimeout(() => (show.value = true), 0);
+
+    const inputValue = ref<string>("");
+
     const wrapperClass = computed(() => `${prefixCls}-chat-window`);
     const contentClass = computed(() => `${prefixCls}-chat-window-content`);
     const footerClass = computed(() => `${prefixCls}-chat-window-footer`);
 
-    const show = ref<boolean>(false);
-
-    setTimeout(() => (show.value = true), 0);
+    const handleBack = () => {
+      show.value = false;
+      // 返回上一级页面
+      setTimeout(() => window.history.back(), 300);
+    };
+    const handleSend = () => {
+      inputValue.value = "";
+    };
 
     return {
+      show,
+      inputValue,
       wrapperClass,
       contentClass,
       footerClass,
-      show,
+      handleSend,
+      handleBack,
     };
   },
 };
@@ -81,10 +98,8 @@ export default {
 
     &-content {
       width: 100%;
-      height: calc(100vh - 3rem);
-      position: absolute;
-      top: 3rem;
-      left: 0;
+      max-height: 35rem;
+      overflow-y: auto;
     }
 
     &-footer {
