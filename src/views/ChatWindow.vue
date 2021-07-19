@@ -3,7 +3,7 @@
     <section :class="wrapperClass">
       <div style="height: 3.5rem">
         <van-nav-bar
-          :title="$route.params.user"
+          :title="friend"
           fixed
           left-arrow
           @click-left="handleBack"
@@ -15,7 +15,23 @@
         </van-nav-bar>
       </div>
 
-      <div :class="contentClass"></div>
+      <div :class="contentClass">
+        <ul>
+          <li>
+            <small :class="msgTime">昨天 {{ time }}</small>
+          </li>
+          <li :class="friendMsg">
+            <Avatar :src="avatar" :width="36" :height="36" />
+            <div :class="msgContent">{{ message }}</div>
+          </li>
+          <template v-if="content.length">
+            <li :class="userMsg" v-for="c in content" :key="c">
+              <Avatar :width="36" :height="36" />
+              <div :class="msgContent">{{ c }}</div>
+            </li>
+          </template>
+        </ul>
+      </div>
 
       <div :class="footerClass">
         <van-row justify="space-between">
@@ -23,7 +39,7 @@
             <van-icon name="volume-o" />
           </van-col>
           <van-col span="16">
-            <van-field v-model="inputValue" />
+            <van-field v-model="inputVal" @keydown.stop="handleEnterKey($event)" />
           </van-col>
           <van-col span="6">
             <van-icon name="smile-o" />
@@ -36,38 +52,91 @@
 </template>
 
 <script lang="ts">
-import { computed, ref } from "vue";
+import { computed, reactive, toRefs } from "vue";
+import { useRoute } from "vue-router";
+import Avatar from "comps/Avatar.vue";
+import { getLocalItem, setLocalItem } from "../utils";
+import { Toast } from "vant";
+
+interface State {
+  show: boolean;
+  time: string | string[];
+  avatar: string | string[];
+  friend: string | string[];
+  message: string | string[];
+  inputVal: string;
+  content: string[];
+  wrapperClass: string;
+  contentClass: string;
+  footerClass: string;
+  userMsg: string;
+  friendMsg: string;
+  msgTime: string;
+  msgContent: string;
+}
 
 const prefixCls = "fwechat";
 
 export default {
+  components: {
+    Avatar,
+  },
   setup() {
-    const show = ref<boolean>(false);
-    setTimeout(() => (show.value = true), 0);
+    const route = useRoute();
 
-    const inputValue = ref<string>("");
+    const state: State = reactive({
+      show: false,
+      time: route.params.time,
+      avatar: route.params.avatar,
+      friend: route.params.friend,
+      message: route.params.message,
+      inputVal: "",
+      content: [],
+      wrapperClass: computed(() => `${prefixCls}-chat-window`),
+      contentClass: computed(() => `${prefixCls}-chat-window-content`),
+      footerClass: computed(() => `${prefixCls}-chat-window-footer`),
+      userMsg: computed(() => `${prefixCls}-chat-user-msg`),
+      friendMsg: computed(() => `${prefixCls}-chat-friend-msg`),
+      msgTime: computed(() => `${prefixCls}-chat-time`),
+      msgContent: computed(() => `${prefixCls}-chat-content`),
+    });
 
-    const wrapperClass = computed(() => `${prefixCls}-chat-window`);
-    const contentClass = computed(() => `${prefixCls}-chat-window-content`);
-    const footerClass = computed(() => `${prefixCls}-chat-window-footer`);
+    setTimeout(() => (state.show = true), 0);
+
+    // 获取本地是否有当前对象的聊天记录
+    state.content = JSON.parse(getLocalItem(`${state.friend}`)!) || [];
+
+    const handleSend = () => {
+      if (state.inputVal !== "") {
+        state.content.push(state.inputVal);
+        state.inputVal = "";
+      } else {
+        Toast("不能发送空白消息");
+      }
+    };
+
+    const handleEnterKey = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        handleSend();
+      }
+    };
 
     const handleBack = () => {
-      show.value = false;
+      state.show = false;
       // 返回上一级页面
       setTimeout(() => window.history.back(), 300);
-    };
-    const handleSend = () => {
-      inputValue.value = "";
+      // 再返回的时候统一设置所有发送的消息到本地缓存中
+      // key值为聊天的对象名
+      if (state.content.length > 0) {
+        setLocalItem(`${state.friend}`, JSON.stringify(state.content));
+      }
     };
 
     return {
-      show,
-      inputValue,
-      wrapperClass,
-      contentClass,
-      footerClass,
+      ...toRefs(state),
       handleSend,
       handleBack,
+      handleEnterKey,
     };
   },
 };
@@ -81,7 +150,7 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 1000;
     overflow: auto;
     background-color: #efefef;
 
@@ -119,7 +188,7 @@ export default {
           height: 2rem;
           top: -2px;
           padding: 0;
-          border-radius: 4px;
+          border-radius: 0.25rem;
           .van-field__control {
             height: 2rem;
             padding-left: 6px;
@@ -152,6 +221,69 @@ export default {
           }
         }
       }
+    }
+  }
+
+  &-chat {
+    &-user-msg,
+    &-friend-msg {
+      display: flex;
+      margin: 0.8rem 0;
+      .fwechat-chat-content {
+        max-width: 15.625rem;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 0.8rem;
+        border-radius: 0.375rem;
+        position: relative;
+        word-break: break-all;
+        white-space: normal;
+      }
+    }
+
+    &-user-msg {
+      flex-direction: row-reverse;
+      padding-right: 0.875rem;
+      .fwechat-chat-content {
+        margin-right: 0.8rem;
+        background-color: #95ee70;
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0.75rem;
+          right: -0.25rem;
+          width: 0.5rem;
+          height: 0.5rem;
+          margin-top: -0.25rem;
+          background: inherit;
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    &-friend-msg {
+      padding-left: 0.875rem;
+      .fwechat-chat-content {
+        margin-left: 0.8rem;
+        background-color: #ffffff;
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0.75rem;
+          left: -0.25rem;
+          width: 0.5rem;
+          height: 0.5rem;
+          margin-top: -0.25rem;
+          background: inherit;
+          transform: rotate(45deg);
+        }
+      }
+    }
+
+    &-time {
+      display: block;
+      color: #808695;
+      text-align: center;
     }
   }
 }

@@ -73,6 +73,13 @@ export default {
           if (getLocalItem(`msg-${i}`)) {
             l.count = Number(getLocalItem(`msg-${i}`));
           }
+          // 从本地获取用户的所有聊天记录
+          // 如果有记录那么取最后一条消息作为展示
+          if (getLocalItem(l.user)) {
+            const chatRecord = JSON.parse(getLocalItem(l.user)!) as string[];
+            const last = chatRecord.length - 1;
+            l.desc = chatRecord[last];
+          }
           if (l.count > 0) {
             message.value.push(l.count);
           }
@@ -83,11 +90,21 @@ export default {
     // 点击消息列表进入聊天窗口
     // 如果有消息计数提示则置零，标题消息总数减1，并保留到缓存中，以便下一次同步
     const handleClick = (idx: number) => {
+      if (list.value[idx].count > 0) {
+        setLocalItem(MSG_SUM.value, `${(message.value.length -= 1)}`);
+      }
       list.value[idx].count = 0;
-      router.push(`/chat/friend=${list.value[idx].user}`);
-
       setLocalItem(`msg-${idx}`, "0");
-      setLocalItem(MSG_SUM.value, `${(message.value.length -= 1)}`);
+      // 通过路由携带当前聊天对象的信息到聊天窗口
+      router.push({
+        name: "chat",
+        params: {
+          avatar: list.value[idx].src,
+          friend: list.value[idx].user,
+          time: list.value[idx].time,
+          message: list.value[idx].desc,
+        },
+      });
     };
 
     return {

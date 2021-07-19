@@ -39,7 +39,7 @@ export default {
 .fwechat {
   &-content {
     position: relative;
-    height: calc(100vh - 6.7rem);
+    height: calc(100vh - 6rem);
     overflow-y: auto;
     background-color: #efefef;
   }
