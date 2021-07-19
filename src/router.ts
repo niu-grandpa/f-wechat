@@ -40,6 +40,14 @@ const router = createRouter({
       },
       component: () => import('views/ChatWindow.vue'),
     },
+    {
+      path: '/user-panel',
+      name: 'userPanel',
+      meta: {
+        title: '用户面板-FWeChat',
+      },
+      component: () => import('views/UserPanel.vue'),
+    },
   ],
 });
 

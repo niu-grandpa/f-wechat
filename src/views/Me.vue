@@ -1,12 +1,6 @@
 <template>
   <div :class="wrapperClass">
-    <div :class="avatarClass">
-      <Avatar :width="60" :height="60" />
-      <div :class="infoBoxClass">
-        <h3 :class="userNameClass">{{ userName }}</h3>
-        <div :class="fwechatInfo">微信号: {{ fwechat }}</div>
-      </div>
-    </div>
+    <UserInfo />
     <Divider />
     <van-cell id="fwechat-cell" title="支付" is-link>
       <template #icon><van-icon color="#19be6b" name="certificate" /></template>
@@ -33,63 +27,26 @@
 
 <script lang="ts">
 import { computed } from "vue";
-import Avatar from "comps/Avatar.vue";
 import Divider from "comps/Divider.vue";
+import UserInfo from "../components/UserInfo.vue";
 
 const prefixCls = "fwechat";
 
 export default {
   components: {
-    Avatar,
     Divider,
+    UserInfo,
   },
   setup() {
     const wrapperClass = computed(() => `${prefixCls}-me`);
-    const avatarClass = computed(() => `${prefixCls}-me-avatar`);
-    const infoBoxClass = computed(() => `${prefixCls}-me-info`);
-    const userNameClass = computed(() => `${prefixCls}-me-info-user`);
-    const fwechatInfo = computed(() => `${prefixCls}-me-info-fwechat`);
-
-    const src = "https://img.yzcdn.cn/vant/cat.jpeg";
-    const userName = localStorage.getItem("nickName")!;
-    const fwechat = localStorage.getItem("userName")!;
-
     return {
       wrapperClass,
-      avatarClass,
-      infoBoxClass,
-      userNameClass,
-      fwechatInfo,
-      src,
-      userName,
-      fwechat,
     };
   },
 };
 </script>
 
 <style lang="less" scoped>
-.fwechat {
-  &-me {
-    &-avatar {
-      display: flex;
-      padding: 1rem 1.2rem;
-      background-color: #fff;
-    }
-    &-info {
-      flex: 1;
-      margin-left: 0.75rem;
-      &-user {
-        font-size: 1.1rem;
-        margin-bottom: 0.7rem;
-      }
-      &-fwechat {
-        font-size: 0.8rem;
-        color: #808695;
-      }
-    }
-  }
-}
 #fwechat-cell {
   i {
     margin-top: 0.15rem;
