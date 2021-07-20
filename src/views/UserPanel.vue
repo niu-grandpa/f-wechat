@@ -27,10 +27,15 @@
     </section>
   </Transition>
   <div style="text-align: center">
-    <van-popup v-model:show="popup" round position="bottom">
+    <van-popup
+      v-model:show="popup"
+      round
+      position="bottom"
+      :close-on-click-overlay="false"
+    >
       <van-cell-group>
-        <van-cell title="视频通话" clickable @click="showCall('video')" />
-        <van-cell title="语音通话" clickable @click="showCall('voice')" />
+        <van-cell title="视频通话" clickable @click="handleShowCall('video')" />
+        <van-cell title="语音通话" clickable @click="handleShowCall('voice')" />
       </van-cell-group>
       <Divider style="background-color: #efefef" />
       <van-cell title="取消" clickable @click="popup = false" />
@@ -90,7 +95,8 @@ export default {
       setTimeout(() => window.history.back(), 300);
     };
 
-    const showCall = (type: "video" | "voice") => {
+    const handleShowCall = (type: "video" | "voice") => {
+      // 异步渲染通话组件
       if (type === "voice") {
         state.compName = "VoiceCalls";
       } else {
@@ -103,7 +109,7 @@ export default {
       ...toRefs(state),
       onBack,
       randomId,
-      showCall,
+      handleShowCall,
     };
   },
 };
