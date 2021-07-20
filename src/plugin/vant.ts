@@ -15,6 +15,7 @@ import {
   Col,
   Row,
   Lazyload,
+  Popup,
 } from 'vant';
 
 export const Vant = [
@@ -34,4 +35,5 @@ export const Vant = [
   Col,
   Row,
   Lazyload,
+  Popup,
 ];
