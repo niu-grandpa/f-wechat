@@ -13,12 +13,12 @@
       <van-cell-group>
         <van-cell title="朋友权限" is-link />
         <van-cell title="标签" is-link />
-        <van-cell title="朋友圈" is-link :style="cellStyle3" />
+        <van-cell title="朋友圈" is-link :style="cellStyle3" @click="handleEnter" />
       </van-cell-group>
       <Divider />
       <van-cell title="更多信息" is-link />
       <Divider />
-      <div :tabindex="0" :class="footerClass" @click="handleClick">
+      <div :tabindex="0" :class="footerClass" @click="handleSendMsg">
         <van-icon name="chat-o" /> <span>发消息</span>
       </div>
       <div :tabindex="0" :class="footerClass" @click="popup = true">
@@ -99,7 +99,18 @@ export default {
       setTimeout(() => window.history.back(), 300);
     };
 
-    const handleClick = () => {
+    // 进入好友个人主页
+    const handleEnter = () => {
+      router.push({
+        name: "personalPage",
+        params: {
+          src: route.params.src,
+          user: route.params.name,
+        },
+      });
+    };
+    // 进入聊天窗口
+    const handleSendMsg = () => {
       router.replace({
         name: "chat",
         params: {
@@ -108,7 +119,7 @@ export default {
         },
       });
     };
-
+    // 显示语音通过拨打界面
     const handleShowCall = (type: "video" | "voice") => {
       // 异步渲染通话组件
       if (type === "voice") {
@@ -123,7 +134,8 @@ export default {
       ...toRefs(state),
       onBack,
       randomId,
-      handleClick,
+      handleEnter,
+      handleSendMsg,
       handleShowCall,
     };
   },

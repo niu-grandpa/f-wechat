@@ -1,14 +1,7 @@
 <template>
   <div class="avatar">
     <van-badge :content="count" :show-zero="false">
-      <img
-        :width="width"
-        :height="height"
-        :src="src"
-        alt="avatar"
-        style="object-fit: cover"
-        v-lazy="src"
-      />
+      <img :width="width" :height="height" :src="src" alt="avatar" v-lazy="src" />
     </van-badge>
   </div>
 </template>

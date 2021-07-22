@@ -48,6 +48,14 @@ const router = createRouter({
       },
       component: () => import('views/UserPanel.vue'),
     },
+    {
+      path: '/personal-home-page',
+      name: 'personalPage',
+      meta: {
+        title: '个人主页-FWeChat',
+      },
+      component: () => import('views/PersonalPage.vue'),
+    },
   ],
 });
 
