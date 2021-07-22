@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch } from "vue";
+import { ref, computed } from "vue";
 import { getLocalItem } from "../utils";
 
 const prefixCls = "fwechat";

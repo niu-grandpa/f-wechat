@@ -7,7 +7,7 @@
           fixed
           left-arrow
           @click-left="handleBack"
-          @click-right=""
+          @click-right="handleMore"
         >
           <template #right>
             <van-icon name="ellipsis" />
@@ -17,12 +17,9 @@
 
       <div :class="contentClass">
         <ul>
-          <li>
-            <small :class="msgTime">昨天 {{ time }}</small>
-          </li>
           <li :class="friendMsg">
             <Avatar :src="avatar" :width="36" :height="36" />
-            <div :class="msgContent">{{ message }}</div>
+            <div :class="msgContent">{{ message || "你好呀~" }}</div>
           </li>
           <template v-if="content.length">
             <li :class="userMsg" v-for="c in content" :key="c">
@@ -53,7 +50,7 @@
 
 <script lang="ts">
 import { computed, reactive, toRefs } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import Avatar from "comps/Avatar.vue";
 import { getLocalItem, setLocalItem } from "../utils";
 import { Toast } from "vant";
@@ -83,13 +80,14 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const router = useRouter();
 
     const state: State = reactive({
       show: false,
       time: route.params.time,
       avatar: route.params.avatar,
       friend: route.params.friend,
-      message: route.params.message,
+      message: route.params.content,
       inputVal: "",
       content: [],
       wrapperClass: computed(() => `${prefixCls}-chat-window`),
@@ -130,12 +128,16 @@ export default {
       if (state.content.length > 0) {
         setLocalItem(`${state.friend}`, JSON.stringify(state.content));
       }
+      new Date().getHours(), new Date().getMinutes();
     };
+
+    const handleMore = () => {};
 
     return {
       ...toRefs(state),
       handleSend,
       handleBack,
+      handleMore,
       handleEnterKey,
     };
   },

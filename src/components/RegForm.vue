@@ -31,7 +31,7 @@
 
 <script lang="ts">
 import { reactive, toRefs } from "vue";
-import router from "../router";
+import { useRouter } from "vue-router";
 import { Toast } from "vant";
 import { setLocalItem } from "../utils";
 
@@ -43,6 +43,8 @@ interface RegInfo {
 
 export default {
   setup() {
+    const router = useRouter();
+
     const state: RegInfo = reactive({
       nickName: "",
       userName: "",

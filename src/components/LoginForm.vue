@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { ref } from "vue";
-import router from "../router";
+import { useRouter } from "vue-router";
 import { Dialog, Toast } from "vant";
 import { getLocalItem } from "../utils";
 
@@ -36,6 +36,8 @@ interface UserInfo {
 
 export default {
   setup() {
+    const router = useRouter();
+
     const username = ref<string>("");
     const password = ref<string>("");
 

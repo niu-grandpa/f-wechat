@@ -34,6 +34,7 @@ interface List {
   desc: string;
   time: string;
   count: number;
+  content: string;
 }
 
 const prefixCls = "fwechat";
@@ -93,8 +94,10 @@ export default {
       if (list.value[idx].count > 0) {
         setLocalItem(MSG_SUM.value, `${(message.value.length -= 1)}`);
       }
+
       list.value[idx].count = 0;
       setLocalItem(`msg-${idx}`, "0");
+
       // 通过路由携带当前聊天对象的信息到聊天窗口
       router.push({
         name: "chat",
@@ -102,7 +105,7 @@ export default {
           avatar: list.value[idx].src,
           friend: list.value[idx].user,
           time: list.value[idx].time,
-          message: list.value[idx].desc,
+          content: list.value[idx].content,
         },
       });
     };

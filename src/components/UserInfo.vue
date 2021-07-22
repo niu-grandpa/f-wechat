@@ -34,7 +34,7 @@ export default {
     },
     src: {
       type: [String, Array],
-      default: "",
+      default: "https://img.yzcdn.cn/vant/cat.jpeg",
     },
   },
   setup(props: any) {

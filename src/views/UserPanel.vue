@@ -18,7 +18,7 @@
       <Divider />
       <van-cell title="更多信息" is-link />
       <Divider />
-      <div :tabindex="0" :class="footerClass">
+      <div :tabindex="0" :class="footerClass" @click="handleClick">
         <van-icon name="chat-o" /> <span>发消息</span>
       </div>
       <div :tabindex="0" :class="footerClass" @click="popup = true">
@@ -46,6 +46,7 @@
 
 <script lang="ts">
 import { computed, reactive, toRefs } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import UserInfo from "../components/UserInfo.vue";
 import Divider from "../components/Divider.vue";
 import VoiceCalls from "../components/VoiceCalls.vue";
@@ -73,6 +74,9 @@ export default {
     VoiceCalls,
   },
   setup() {
+    const route = useRoute();
+    const router = useRouter();
+
     const state: State = reactive({
       show: false,
       popup: false,
@@ -95,6 +99,16 @@ export default {
       setTimeout(() => window.history.back(), 300);
     };
 
+    const handleClick = () => {
+      router.replace({
+        name: "chat",
+        params: {
+          friend: route.params.name,
+          avatar: route.params.src,
+        },
+      });
+    };
+
     const handleShowCall = (type: "video" | "voice") => {
       // 异步渲染通话组件
       if (type === "voice") {
@@ -109,6 +123,7 @@ export default {
       ...toRefs(state),
       onBack,
       randomId,
+      handleClick,
       handleShowCall,
     };
   },
