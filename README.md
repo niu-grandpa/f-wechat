@@ -20,5 +20,23 @@ npm run build
 npm run serve
 ```
 
-突然之间心血来潮，便有了制作一个移动端网页的微信的想法，按照手机微信的外观一定程度上还原出来
 
+
+效果截图：
+
+<img src="C:\Users\qq286\Desktop\前端\项目区\移动端项目\f-wechat\f-wechat\images\1.png" style="zoom:80%;" />
+
+
+<img src="C:\Users\qq286\Desktop\前端\项目区\移动端项目\f-wechat\f-wechat\images\2.png" alt="2" style="zoom:80%;" />
+
+<img src="C:\Users\qq286\Desktop\前端\项目区\移动端项目\f-wechat\f-wechat\images\3.png" alt="3" style="zoom:80%;" />
+
+<img src="C:\Users\qq286\Desktop\前端\项目区\移动端项目\f-wechat\f-wechat\images\4.png" alt="4" style="zoom:80%;" />
+
+<img src="C:\Users\qq286\Desktop\前端\项目区\移动端项目\f-wechat\f-wechat\images\5.png" alt="5" style="zoom:80%;" />
+
+<img src="C:\Users\qq286\Desktop\前端\项目区\移动端项目\f-wechat\f-wechat\images\6.png" alt="6" style="zoom:80%;" />
+
+<img src="C:\Users\qq286\Desktop\前端\项目区\移动端项目\f-wechat\f-wechat\images\7.png" alt="7" style="zoom:80%;" />
+
+<img src="C:\Users\qq286\Desktop\前端\项目区\移动端项目\f-wechat\f-wechat\images\8.png" alt="8" style="zoom:80%;" />

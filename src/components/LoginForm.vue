@@ -45,16 +45,12 @@ export default {
       const { userName, password } = values;
       const un = getLocalItem("userName");
       const pw = getLocalItem("password");
-      const nk = getLocalItem("nickName");
 
       if (un === userName && pw === password) {
         Toast.loading("登录中");
         setTimeout(() => {
           Toast.clear();
-          router.replace({
-            name: "chats",
-            params: { nickName: nk!, username: userName },
-          });
+          router.replace("/user");
         }, 1000);
       } else {
         Dialog.alert({

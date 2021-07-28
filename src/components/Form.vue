@@ -1,8 +1,8 @@
 <template>
   <Transition name="van-slide-right">
     <section v-show="visible" :class="wrapperClass">
-      <div :class="closeIconClass">
-        <router-link to="/home"><van-icon name="arrow-left" /></router-link>
+      <div :class="closeIconClass" @click="onBack">
+        <van-icon name="arrow-left" />
       </div>
       <div :class="loginBoxClass">
         <h2>{{ $props.title }}</h2>
@@ -31,11 +31,17 @@ export default {
     const closeIconClass = computed(() => `${prefixCls}-close`);
     const loginBoxClass = computed(() => `${prefixCls}-form-box`);
 
+    const onBack = () => {
+      visible.value = false;
+      setTimeout(() => history.back(), 300);
+    };
+
     return {
       visible,
       wrapperClass,
       closeIconClass,
       loginBoxClass,
+      onBack,
     };
   },
 };

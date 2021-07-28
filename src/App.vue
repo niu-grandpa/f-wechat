@@ -1,15 +1,21 @@
 <template>
-  <Header :class="hiddenClass" :title="title" />
+  <Header :class="hiddenClass" :title="title" v-if="isUserPath" />
   <RouterView />
-  <Main :active="title" />
-  <Tabbar @on-change="onChange" />
+  <template v-if="isUserPath">
+    <Main :active="title" />
+    <Tabbar @on-change="onChange" />
+  </template>
 </template>
 
 <script lang="ts">
-import { computed, ref } from "vue";
-import Header from "comps/Header.vue";
-import Main from "views/Main.vue";
-import Tabbar from "comps/Tabbar.vue";
+import { computed, defineAsyncComponent, ref, watchEffect } from "vue";
+import { useRoute } from "vue-router";
+
+// 当路由页面是首页或登录页时，这些组件都是不需要加载的
+// 所以使用异步组件 + v-if 达到不加载不发送http请求的目的
+const Header = defineAsyncComponent(() => import("comps/Header.vue"));
+const Main = defineAsyncComponent(() => import("views/Main.vue"));
+const Tabbar = defineAsyncComponent(() => import("comps/Tabbar.vue"));
 
 export default {
   components: {
@@ -18,10 +24,21 @@ export default {
     Tabbar,
   },
   setup() {
+    const route = useRoute();
     const title = ref<string>("微信");
     const showHeader = ref<boolean>(true);
-
+    const isUserPath = ref<boolean>(false);
     const hiddenClass = computed(() => ({ hidden: !showHeader.value }));
+
+    // 监听路由的变化决定是否加载组件
+    watchEffect(() => {
+      const loginPath = ["/home", "/user/login", "/user/register"];
+      if (loginPath.includes(route.path)) {
+        isUserPath.value = false;
+      } else {
+        isUserPath.value = true;
+      }
+    });
 
     const onChange = (cur: string) => {
       title.value = cur;
@@ -31,6 +48,7 @@ export default {
     return {
       title,
       showHeader,
+      isUserPath,
       hiddenClass,
       onChange,
     };

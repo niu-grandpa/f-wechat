@@ -1,17 +1,16 @@
 <template>
-  <section>
-    <transition name="van-fade">
-      <div v-if="visible" :class="homeClass" />
-    </transition>
-    <div :class="btnBoxClass">
-      <router-link to="/login">
-        <van-button type="success">登录</van-button>
-      </router-link>
-      <router-link to="/register">
-        <van-button style="color: rgb(7, 193, 96)">注册</van-button>
-      </router-link>
-    </div>
-  </section>
+  <Transition name="van-fade">
+    <section v-if="visible" :class="homeClass">
+      <div :class="btnBoxClass">
+        <router-link to="/user/login">
+          <van-button type="success">登录</van-button>
+        </router-link>
+        <router-link to="/user/register">
+          <van-button style="color: rgb(7, 193, 96)">注册</van-button>
+        </router-link>
+      </div>
+    </section>
+  </Transition>
 </template>
 
 <script lang="ts">
@@ -42,10 +41,11 @@ export default {
 .fwechat {
   &-home-bg {
     width: 100%;
-    height: calc(100vh);
-    position: absolute;
+    height: 100vh;
+    position: fixed;
     top: 0;
     left: 0;
+    z-index: 1500;
     background-image: url("@/assets/home-bg.jpg");
     background-size: cover;
     background-position: center;
