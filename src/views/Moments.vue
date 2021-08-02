@@ -7,12 +7,20 @@
       </div>
       <div :class="bottomBoxClass">
         <lazy-component>
-          <van-cell v-for="n in 100" clickable>
+          <van-cell v-for="info in infoList" clickable>
             <template #value>
-              <Avatar :width="32" :height="32" />
+              <Avatar :width="35" :height="35" :src="info.src" />
               <div :class="infoBox">
-                <h5></h5>
-                <p></p>
+                <h5>{{ info.user }}</h5>
+                <p v-if="info.postedContent">{{ info.postedContent }}</p>
+                <img
+                  v-if="info.postedImg"
+                  style="object-fit: cover"
+                  :src="info.postedImg"
+                  alt="image"
+                  width="200"
+                  height="140"
+                />
               </div>
             </template>
           </van-cell>
@@ -23,14 +31,37 @@
 </template>
 
 <script lang="ts">
-import { reactive, computed, toRefs } from "vue";
+import { reactive, computed, toRefs, ref } from "vue";
 import { useRouter } from "vue-router";
 import { Toast } from "vant";
 import DividerAvatar from "comps/DividerAvatar.vue";
 import { getLocalItem } from "../utils";
 import Avatar from "comps/Avatar.vue";
 
+interface State {
+  show: boolean;
+  loading: boolean;
+  wrapperClass: string;
+  backIcon: string;
+  topBoxClass: string;
+  bottomBoxClass: string;
+  infoBox: string;
+  userName: string | null;
+}
+
+interface List {
+  src: string;
+  user: string;
+  postedImg: string;
+  postedContent: string;
+}
+
 const prefixCls = "fwechat";
+
+async function getData(d: any) {
+  const response: Response = await fetch("/static/chat_list.json");
+  d.value = await response.json();
+}
 
 export default {
   components: {
@@ -39,7 +70,7 @@ export default {
   },
   setup() {
     const router = useRouter();
-    const state = reactive({
+    const state: State = reactive({
       show: false,
       loading: false,
       wrapperClass: computed(() => `${prefixCls}-moments`),
@@ -49,12 +80,14 @@ export default {
       infoBox: computed(() => `${prefixCls}-moments-info-box`),
       userName: computed(() => getLocalItem("nickName")),
     });
+    const infoList = ref<List[]>([]);
 
     setTimeout(() => {
       state.show = true;
       state.loading = true;
     }, 0);
-    setTimeout(() => (state.loading = false), 1000);
+
+    getData(infoList).then(() => (state.loading = false));
 
     const handleBack = () => {
       state.show = false;
@@ -62,14 +95,15 @@ export default {
     };
 
     const onRefresh = () => {
-      setTimeout(() => {
+      getData(infoList).then(() => {
         Toast("刷新成功");
         state.loading = false;
-      }, 1000);
+      });
     };
 
     return {
       ...toRefs(state),
+      infoList,
       handleBack,
       onRefresh,
     };
@@ -113,9 +147,23 @@ export default {
     }
 
     &-info-box {
-      margin-top: -0.6875rem;
+      margin-top: -0.75rem;
       margin-left: 2.125rem;
       padding: 0.5rem;
+
+      h5 {
+        color: #17233d;
+        font-size: 0.85rem;
+
+        & + img {
+          margin-top: 0.5rem;
+        }
+      }
+
+      p {
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+      }
     }
   }
 }
