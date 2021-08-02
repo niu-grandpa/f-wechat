@@ -56,6 +56,13 @@ const router = createRouter({
       },
       component: () => import('views/PersonalPage.vue'),
     },
+    {
+      path: '/user/moments',
+      meta: {
+        title: '朋友圈-FWeChat',
+      },
+      component: () => import('views/Moments.vue'),
+    },
   ],
 });
 

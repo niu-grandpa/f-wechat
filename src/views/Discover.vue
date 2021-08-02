@@ -1,6 +1,6 @@
 <template>
   <div :class="wrapperClass">
-    <van-cell title="朋友圈" :icon="pyqImg" is-link />
+    <van-cell title="朋友圈" to="/user/moments" :icon="pyqImg" is-link />
     <Divider />
     <van-cell title="扫一扫" :icon="scan" is-link />
     <Divider />

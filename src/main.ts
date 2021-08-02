@@ -6,5 +6,5 @@ import App from './App.vue';
 const app = createApp(App);
 
 app.use(router);
-Vant.forEach(comp => app.use(comp));
+Vant.forEach(comp => app.use(comp, { lazyComponent: true }));
 app.mount('#app');

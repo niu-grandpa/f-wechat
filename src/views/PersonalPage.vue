@@ -3,10 +3,7 @@
     <section :class="wrapperClass">
       <div :class="topBoxClass">
         <van-icon name="arrow-left" @click="handleBack" />
-        <div :class="infoClass">
-          <span>{{ $route.params.user }}</span>
-          <Avatar :width="53" :height="50" :src="$route.params.src" />
-        </div>
+        <DividerAvatar />
       </div>
       <div :class="bottomBoxClass"><hr /></div>
     </section>
@@ -16,13 +13,13 @@
 <script lang="ts">
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
-import Avatar from "../components/Avatar.vue";
+import DividerAvatar from "comps/DividerAvatar.vue";
 
 const prefixCls = "fwechat";
 
 export default {
   components: {
-    Avatar,
+    DividerAvatar,
   },
   setup() {
     const router = useRouter();
@@ -32,7 +29,6 @@ export default {
 
     const wrapperClass = computed(() => `${prefixCls}-personal`);
     const topBoxClass = computed(() => `${prefixCls}-personal-top`);
-    const infoClass = computed(() => `${prefixCls}-personal-info`);
     const bottomBoxClass = computed(() => `${prefixCls}-personal-bottom`);
 
     const handleBack = () => {
@@ -46,7 +42,6 @@ export default {
       show,
       wrapperClass,
       topBoxClass,
-      infoClass,
       bottomBoxClass,
       handleBack,
     };
@@ -87,23 +82,6 @@ export default {
       hr {
         width: 80%;
         margin: 6rem auto;
-      }
-    }
-
-    &-info {
-      position: absolute;
-      right: 1rem;
-      bottom: -25px;
-
-      .avatar {
-        float: right;
-      }
-
-      > span {
-        display: inline-block;
-        margin-top: 0.3rem;
-        margin-right: 0.8rem;
-        color: #fff;
       }
     }
   }
