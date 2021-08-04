@@ -1,10 +1,8 @@
 <template>
-  <Header :class="hiddenClass" :title="title" v-if="isUserPath" />
+  <Header :class="hiddenClass" :title="title" v-show="isUserPath" />
+  <Main :active="title" v-if="isUserPath" />
   <RouterView />
-  <template v-if="isUserPath">
-    <Main :active="title" />
-    <Tabbar @on-change="onChange" />
-  </template>
+  <Tabbar @on-change="onChange" />
 </template>
 
 <script lang="ts">
@@ -14,7 +12,7 @@ import { useRoute } from "vue-router";
 // 当路由页面是首页或登录页时，这些组件都是不需要加载的
 // 所以使用异步组件 + v-if 达到不加载不发送http请求的目的
 const Header = defineAsyncComponent(() => import("comps/Header.vue"));
-const Main = defineAsyncComponent(() => import("views/Main.vue"));
+const Main = defineAsyncComponent(() => import("views/main/Index.vue"));
 const Tabbar = defineAsyncComponent(() => import("comps/Tabbar.vue"));
 
 export default {

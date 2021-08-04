@@ -35,7 +35,7 @@ import { reactive, computed, toRefs, ref } from "vue";
 import { useRouter } from "vue-router";
 import { Toast } from "vant";
 import DividerAvatar from "comps/DividerAvatar.vue";
-import { getLocalItem } from "../utils";
+import { getLocalItem } from "../../utils";
 import Avatar from "comps/Avatar.vue";
 
 interface State {
@@ -87,7 +87,11 @@ export default {
       state.loading = true;
     }, 0);
 
-    getData(infoList).then(() => (state.loading = false));
+    getData(infoList).then(() => {
+      setTimeout(() => {
+        state.loading = false;
+      }, 500);
+    });
 
     const handleBack = () => {
       state.show = false;

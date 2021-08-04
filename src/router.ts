@@ -16,21 +16,21 @@ const router = createRouter({
       meta: {
         title: '登录-FWeChat',
       },
-      component: () => import('views/Home.vue'),
+      component: () => import('views/index/Index.vue'),
     },
     {
       path: '/user/login',
       meta: {
         title: '登录-FWeChat',
       },
-      component: () => import('views/Login.vue'),
+      component: () => import('views/index/Login.vue'),
     },
     {
       path: '/user/register',
       meta: {
         title: '注册-FWeChat',
       },
-      component: () => import('views/Register.vue'),
+      component: () => import('views/index/Register.vue'),
     },
     {
       path: '/user/chat-window',
@@ -38,7 +38,7 @@ const router = createRouter({
       meta: {
         title: '聊天会话-FWeChat',
       },
-      component: () => import('views/ChatWindow.vue'),
+      component: () => import('views/chats/ChatWindow.vue'),
     },
     {
       path: '/user-panel',
@@ -46,7 +46,7 @@ const router = createRouter({
       meta: {
         title: '用户面板-FWeChat',
       },
-      component: () => import('views/UserPanel.vue'),
+      component: () => import('views/contacts/UserPanel.vue'),
     },
     {
       path: '/personal-home-page',
@@ -54,14 +54,14 @@ const router = createRouter({
       meta: {
         title: '个人主页-FWeChat',
       },
-      component: () => import('views/PersonalPage.vue'),
+      component: () => import('views/contacts/PersonalPage.vue'),
     },
     {
       path: '/user/moments',
       meta: {
         title: '朋友圈-FWeChat',
       },
-      component: () => import('views/Moments.vue'),
+      component: () => import('views/discover/Moments.vue'),
     },
   ],
 });

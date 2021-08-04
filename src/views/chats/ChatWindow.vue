@@ -52,7 +52,7 @@
 import { computed, reactive, toRefs } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Avatar from "comps/Avatar.vue";
-import { getLocalItem, setLocalItem } from "../utils";
+import { getLocalItem, setLocalItem } from "../../utils";
 import { Toast } from "vant";
 
 interface State {

@@ -24,21 +24,21 @@ npm run serve
 
 效果截图：
 
-<img src=".\images\1.png" style="zoom:80%;" />
+<img src="./images/1.png" style="zoom:80%;" />
 
 
-<img src=".\images\2.png" alt="2" style="zoom:80%;" />
+<img src="./images/2.png" alt="2" style="zoom:80%;" />
 
-<img src=".\images\3.png" alt="3" style="zoom:80%;" />
+<img src="./images/3.png" alt="3" style="zoom:80%;" />
 
-<img src=".\images\4.png" alt="4" style="zoom:80%;" />
+<img src="./images/4.png" alt="4" style="zoom:80%;" />
 
-<img src=".\images\5.png" alt="5" style="zoom:80%;" />
+<img src="./images/5.png" alt="5" style="zoom:80%;" />
 
-<img src=".\images\6.png" alt="6" style="zoom:80%;" />
+<img src="./images/6.png" alt="6" style="zoom:80%;" />
 
-<img src=".\images\7.png" alt="7" style="zoom:80%;" />
+<img src="./images/7.png" alt="7" style="zoom:80%;" />
 
-<img src=".\images\8.png" alt="8" style="zoom:80%;" />
+<img src="./images/8.png" alt="8" style="zoom:80%;" />
 
-<img src=".\images\9.png" alt="9" style="zoom:80%;" />
+<img src="./images/9.png" alt="9" style="zoom:80%;" />

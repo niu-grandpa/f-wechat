@@ -9,10 +9,10 @@
 
 <script lang="ts">
 import { computed } from "vue";
-import Chats from "./Chats.vue";
-import Contacts from "./Contacts.vue";
-import Discover from "./Discover.vue";
-import Me from "./Me.vue";
+import Chats from "../chats/Index.vue";
+import Contacts from "../contacts/Index.vue";
+import Discover from "../discover/Index.vue";
+import Me from "../me/Index.vue";
 
 const prefixCls = "fwechat";
 

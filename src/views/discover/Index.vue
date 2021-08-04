@@ -1,12 +1,14 @@
 <template>
-  <div :class="wrapperClass">
-    <van-cell title="朋友圈" to="/user/moments" :icon="pyqImg" is-link />
-    <Divider />
-    <van-cell title="扫一扫" :icon="scan" is-link />
-    <Divider />
-    <van-cell title="看一看" :icon="look" is-link />
-    <van-cell title="搜一搜" :icon="search" is-link />
-  </div>
+  <Transition name="van-slide-left">
+    <div :class="wrapperClass">
+      <van-cell title="朋友圈" to="/user/moments" :icon="pyqImg" is-link />
+      <Divider />
+      <van-cell title="扫一扫" :icon="scan" is-link />
+      <Divider />
+      <van-cell title="看一看" :icon="look" is-link />
+      <van-cell title="搜一搜" :icon="search" is-link />
+    </div>
+  </Transition>
 </template>
 
 <script lang="ts">
@@ -38,3 +40,11 @@ export default {
   },
 };
 </script>
+
+<style lang="less" scoped>
+.fwechat {
+  &-discover {
+    height: 100%;
+  }
+}
+</style>

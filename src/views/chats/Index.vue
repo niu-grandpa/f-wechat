@@ -1,24 +1,26 @@
 <template>
-  <div :class="wrapperClass">
-    <van-cell
-      center
-      clickable
-      v-for="(n, i) in list"
-      :key="n.user"
-      @click="handleClick(i)"
-    >
-      <template #value>
-        <sup>{{ n.time }}</sup>
-      </template>
-      <template #title>
-        <Avatar :src="n.src" :badge-count="n.count" />
-        <div :class="infoClass">
-          <h4>{{ n.user }}</h4>
-          <small>{{ n.desc }}</small>
-        </div>
-      </template>
-    </van-cell>
-  </div>
+  <Transition name="van-slide-left">
+    <div :class="wrapperClass">
+      <van-cell
+        center
+        clickable
+        v-for="(n, i) in list"
+        :key="n.user"
+        @click="handleClick(i)"
+      >
+        <template #value>
+          <sup>{{ n.time }}</sup>
+        </template>
+        <template #title>
+          <Avatar :src="n.src" :badge-count="n.count" />
+          <div :class="infoClass">
+            <h4>{{ n.user }}</h4>
+            <small>{{ n.desc }}</small>
+          </div>
+        </template>
+      </van-cell>
+    </div>
+  </Transition>
 </template>
 
 <script lang="ts">
@@ -26,7 +28,7 @@ import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { Toast } from "vant";
 import Avatar from "comps/Avatar.vue";
-import { getLocalItem, setLocalItem } from "../utils";
+import { getLocalItem, setLocalItem } from "../../utils";
 
 interface List {
   src: string;

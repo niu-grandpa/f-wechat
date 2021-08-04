@@ -47,9 +47,9 @@
 <script lang="ts">
 import { computed, reactive, toRefs } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import UserInfo from "../components/UserInfo.vue";
-import Divider from "../components/Divider.vue";
-import VoiceCalls from "../components/VoiceCalls.vue";
+import UserInfo from "../../components/UserInfo.vue";
+import Divider from "../../components/Divider.vue";
+import VoiceCalls from "../../components/VoiceCalls.vue";
 
 interface State {
   show: boolean;
