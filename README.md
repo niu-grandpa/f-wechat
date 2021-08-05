@@ -33,7 +33,11 @@ npm run serve
 
 <img src="./images/4.png" alt="4" style="zoom:80%;" />
 
+<<<<<<< HEAD
 <img src="./images/5.png" alt="5" style="zoom:80%;" />
+=======
+<img src="../images/5.png" alt="5" style="zoom:80%;" />
+>>>>>>> 30552ae80dc9ac6fa889a5d924fbe6af07e4ffaa
 
 <img src="./images/6.png" alt="6" style="zoom:80%;" />
 
@@ -41,4 +45,8 @@ npm run serve
 
 <img src="./images/8.png" alt="8" style="zoom:80%;" />
 
+<<<<<<< HEAD
 <img src="./images/9.png" alt="9" style="zoom:80%;" />
+=======
+<img src="./images/9.png" alt="9" style="zoom:80%;" />
+>>>>>>> 30552ae80dc9ac6fa889a5d924fbe6af07e4ffaa
