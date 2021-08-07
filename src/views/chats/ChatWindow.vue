@@ -2,17 +2,11 @@
   <Transition name="van-slide-right" v-show="show">
     <section :class="wrapperClass">
       <div style="height: 3.5rem">
-        <van-nav-bar
+        <NavBar
           :title="friend"
-          fixed
-          left-arrow
-          @click-left="handleBack"
-          @click-right="handleMore"
-        >
-          <template #right>
-            <van-icon name="ellipsis" />
-          </template>
-        </van-nav-bar>
+          @on-click-left="handleBack"
+          @on-click-right="handleMore"
+        />
       </div>
 
       <div :class="contentClass">
@@ -52,6 +46,7 @@
 import { computed, reactive, toRefs } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Avatar from "comps/Avatar.vue";
+import NavBar from "comps/Navbar.vue";
 import { getLocalItem, setLocalItem } from "../../utils";
 import { Toast } from "vant";
 
@@ -77,10 +72,10 @@ const prefixCls = "fwechat";
 export default {
   components: {
     Avatar,
+    NavBar,
   },
   setup() {
     const route = useRoute();
-    const router = useRouter();
 
     const state: State = reactive({
       show: false,
@@ -128,7 +123,6 @@ export default {
       if (state.content.length > 0) {
         setLocalItem(`${state.friend}`, JSON.stringify(state.content));
       }
-      new Date().getHours(), new Date().getMinutes();
     };
 
     const handleMore = () => {};
@@ -158,9 +152,6 @@ export default {
 
     .van-nav-bar {
       background-color: #efefef;
-      .van-icon {
-        color: inherit;
-      }
     }
 
     .van-hairline--bottom::after {

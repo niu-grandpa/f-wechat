@@ -3,7 +3,7 @@
     <div :class="wrapperClass">
       <UserInfo />
       <Divider />
-      <van-cell id="fwechat-cell" title="支付" is-link>
+      <van-cell id="fwechat-cell" title="支付" is-link to="/user/pay">
         <template #icon><van-icon color="#19be6b" name="certificate" /></template>
       </van-cell>
       <Divider />

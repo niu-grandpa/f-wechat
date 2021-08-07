@@ -4,14 +4,6 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
-      redirect: '/user',
-      meta: {
-        title: 'FWeChat',
-        isLogin: true,
-      },
-    },
-    {
       path: '/home',
       meta: {
         title: '登录-FWeChat',
@@ -63,6 +55,13 @@ const router = createRouter({
       },
       component: () => import('views/discover/Moments.vue'),
     },
+    {
+      path: '/user/pay',
+      meta: {
+        title: '支付-FWeChat',
+      },
+      component: () => import('views/me/Pay.vue'),
+    },
   ],
 });
 
@@ -76,15 +75,9 @@ router.beforeEach((to, from, next) => {
   if (title) {
     document.title = title as string;
   }
-
-  // 判断该路由是否需要登录权限
-  if (isLogin) {
-    if (isUser && isPassword) {
-      next();
-    } else {
-      next('/home');
-    }
+  if (isUser && isPassword) {
+    next();
   } else {
-    next(); // 确保一定要有next()被调用
+    next('/home');
   }
 });

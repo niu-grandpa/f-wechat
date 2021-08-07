@@ -56,20 +56,5 @@ export default {
 
 <style lang="less">
 @import "@/styles/base";
-
-#app {
-  overflow: hidden;
-}
-
-.hidden {
-  visibility: hidden;
-  z-index: -1;
-}
-
-.van-popover__action {
-  width: auto;
-}
-.van-cell__left-icon {
-  margin-right: 1rem;
-}
+@import "@/styles/app";
 </style>
