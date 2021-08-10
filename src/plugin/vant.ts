@@ -17,6 +17,8 @@ import {
   Lazyload,
   Popup,
   PullRefresh,
+  Grid,
+  GridItem,
 } from 'vant';
 
 export const Vant = [
@@ -38,4 +40,6 @@ export const Vant = [
   Lazyload,
   Popup,
   PullRefresh,
+  Grid,
+  GridItem,
 ];
