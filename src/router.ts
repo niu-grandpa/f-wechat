@@ -4,6 +4,13 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
+      path: '',
+      meta: {
+        login: true,
+      },
+      component: () => import('views/index/Index.vue'),
+    },
+    {
       path: '/home',
       meta: {
         title: '登录-FWeChat',
@@ -81,9 +88,14 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title as string;
   }
-  if (isUser && isPassword) {
-    next();
+  // 路由登录验证
+  if (to.meta.login) {
+    if (isUser && isPassword) {
+      next();
+    } else {
+      next('/home');
+    }
   } else {
-    next('/home');
+    next();
   }
 });
