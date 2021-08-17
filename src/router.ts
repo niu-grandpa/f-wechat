@@ -62,18 +62,24 @@ const router = createRouter({
       },
       component: () => import('views/me/Pay.vue'),
     },
+    {
+      path: '/user/setting',
+      meta: {
+        title: '设置-FWeChat',
+      },
+      component: () => import('views/me/Setting.vue'),
+    },
   ],
 });
 
 export default router;
 
 router.beforeEach((to, from, next) => {
-  const { title, isLogin } = to.meta;
   const isUser = localStorage.getItem('userName');
   const isPassword = localStorage.getItem('password');
 
-  if (title) {
-    document.title = title as string;
+  if (to.meta.title) {
+    document.title = to.meta.title as string;
   }
   if (isUser && isPassword) {
     next();

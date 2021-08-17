@@ -145,16 +145,6 @@ export default {
 <style lang="less" scoped>
 .fwechat {
   &-user-panel {
-    width: 100%;
-    height: calc(100vh);
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 1200;
-    background-color: #efefef;
-    overflow: hidden;
-
     &-back {
       font-size: 1rem;
     }

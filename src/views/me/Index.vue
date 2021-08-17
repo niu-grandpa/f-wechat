@@ -3,7 +3,7 @@
     <div :class="wrapperClass">
       <UserInfo />
       <Divider />
-      <van-cell id="fwechat-cell" title="支付" is-link to="/user/pay">
+      <van-cell id="fwechat-cell" title="支付" is-link :to="payPath">
         <template #icon><van-icon color="#19be6b" name="certificate" /></template>
       </van-cell>
       <Divider />
@@ -20,7 +20,7 @@
         <template #icon><van-icon color="#ff9900" name="smile-o" /></template>
       </van-cell>
       <Divider />
-      <van-cell id="fwechat-cell" title="设置" is-link>
+      <van-cell id="fwechat-cell" title="设置" is-link :to="settingPath">
         <template #icon><van-icon color="#2d8cf0" name="setting-o" /></template>
       </van-cell>
     </div>
@@ -41,8 +41,15 @@ export default {
   },
   setup() {
     const wrapperClass = computed(() => `${prefixCls}-me`);
+
+    // route path
+    const payPath = computed(() => "/user/pay");
+    const settingPath = computed(() => "/user/setting");
+
     return {
       wrapperClass,
+      payPath,
+      settingPath,
     };
   },
 };

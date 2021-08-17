@@ -141,15 +141,6 @@ export default {
 <style lang="less">
 .fwechat {
   &-chat-window {
-    width: 100%;
-    height: calc(100vh);
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    overflow: auto;
-    background-color: #efefef;
-
     .van-nav-bar {
       background-color: #efefef;
     }

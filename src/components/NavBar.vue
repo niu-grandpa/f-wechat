@@ -1,5 +1,5 @@
 <template>
-  <div :style="`${height}px`">
+  <div :style="{ height: `${height}px` }">
     <van-nav-bar
       :title="$props.title"
       fixed
@@ -7,7 +7,7 @@
       @click-left="handleBack"
       @click-right="handleMore"
     >
-      <template #right>
+      <template #right v-if="$props.showRight">
         <van-icon name="ellipsis" />
       </template>
     </van-nav-bar>
@@ -15,11 +15,15 @@
 </template>
 
 <script lang="ts">
-import { computed } from "@vue/runtime-core";
+import { computed } from "vue";
 
 export default {
   props: {
     title: String,
+    showRight: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ["on-click-left", "on-click-right"],
   setup(prop: any, context: any) {

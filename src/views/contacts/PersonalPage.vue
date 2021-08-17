@@ -52,14 +52,8 @@ export default {
 <style lang="less" scoped>
 .fwechat {
   &-personal {
-    width: 100%;
-    height: calc(100vh);
     display: flex;
     flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1250;
 
     &-top {
       height: 30%;

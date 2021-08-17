@@ -40,12 +40,6 @@ export default {
 <style lang="less" scoped>
 .fwechat {
   &-home-bg {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1500;
     background-image: url("@/assets/home-bg.jpg");
     background-size: cover;
     background-position: center;

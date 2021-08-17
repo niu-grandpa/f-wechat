@@ -113,15 +113,7 @@ export default {
 <style lang="less" scoped>
 .fwechat {
   &-pay {
-    width: 100%;
-    height: 100%;
     padding: 0.5rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #efefef;
-    z-index: 1250;
-    overflow-y: auto;
 
     &-green-box {
       width: 100%;

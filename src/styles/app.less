@@ -2,6 +2,26 @@
   overflow: hidden;
 }
 
+// global shared style
+.fwechat {
+  &-home-bg,
+  &-chat-window,
+  &-moments,
+  &-personal,
+  &-user-panel,
+  &-pay,
+  &-setting {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #efefef;
+    z-index: 1250;
+    overflow-y: auto;
+  }
+}
+
 .hidden {
   visibility: hidden;
   z-index: -1;
